@@ -1,4 +1,5 @@
-local whitelistUserIDs = {4774315228}
+local whitelistUserIDs = {4774315228,12055310}
+local player = game.players.localplayer
 
 game.Players.PlayedAdded:Connect(function(player)
     if not table.find(whitelistUserIDs,player.UserId) then --If the UserID value is not in the table this returns nil. In Lua nil equals false.
