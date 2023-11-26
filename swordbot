@@ -1,142 +1,473 @@
-local whitelistUserIDs = {4774315228,12055310}
-local player = game.players.localplayer
+-- Gui to Lua
+-- Version: 3.6
 
-game.Players.PlayedAdded:Connect(function(player)
-    if not table.find(whitelistUserIDs,player.UserId) then --If the UserID value is not in the table this returns nil. In Lua nil equals false.
-        script:Destroy()
-    end
-end)
+-- Instances:
 
+local ScreenGui = Instance.new("ScreenGui")
+local main = Instance.new("Frame")
+local clear = Instance.new("TextButton")
+local execute = Instance.new("TextButton")
+local lines = Instance.new("TextLabel")
+local editorframe = Instance.new("ScrollingFrame")
+local source = Instance.new("TextBox")
+local Comments_ = Instance.new("TextLabel")
+local Globals_ = Instance.new("TextLabel")
+local Keywords_ = Instance.new("TextLabel")
+local Numbers_ = Instance.new("TextLabel")
+local RemoteHighlight_ = Instance.new("TextLabel")
+local Strings_ = Instance.new("TextLabel")
+local Tokens_ = Instance.new("TextLabel")
+local title = Instance.new("TextLabel")
 
-getgenv().i_said_right_foot_creep = false
+-- Properties:
 
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
-game:GetService("RunService").RenderStepped:Connect(function()
+main.Name = "main"
+main.Parent = ScreenGui
+main.BackgroundColor3 = Color3.fromRGB(74, 74, 74)
+main.BorderColor3 = Color3.fromRGB(0, 0, 0)
+main.BorderSizePixel = 0
+main.Position = UDim2.new(0.293755352, 0, 0.278042257, 0)
+main.Size = UDim2.new(0, 469, 0, 349)
+main.ZIndex = 999999999
 
-if i_said_right_foot_creep == true then
-    
-    spawn(function()
-        
-local tool = game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool")
-if tool and tool:FindFirstChild("Handle") then
-tool:Activate()
+clear.Name = "clear"
+clear.Parent = main
+clear.BackgroundColor3 = Color3.fromRGB(115, 115, 115)
+clear.BorderColor3 = Color3.fromRGB(0, 0, 0)
+clear.BorderSizePixel = 0
+clear.Position = UDim2.new(0.339119524, 0, 0.891117454, 0)
+clear.Size = UDim2.new(0, 113, 0, 32)
+clear.ZIndex = 999999999
+clear.Font = Enum.Font.Jura
+clear.Text = "Clear"
+clear.TextColor3 = Color3.fromRGB(0, 0, 0)
+clear.TextSize = 33.000
+clear.TextWrapped = true
 
-local p = game.Players:GetPlayers()
-for i = 2, #p do local v = p[i].Character
-if v and v:FindFirstChild("Humanoid") and v.Humanoid.Health > 0 and v:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer:DistanceFromCharacter(v.HumanoidRootPart.Position) <= 15 then
+execute.Name = "execute"
+execute.Parent = main
+execute.BackgroundColor3 = Color3.fromRGB(115, 115, 115)
+execute.BorderColor3 = Color3.fromRGB(0, 0, 0)
+execute.BorderSizePixel = 0
+execute.Position = UDim2.new(0.0871179923, 0, 0.891117454, 0)
+execute.Size = UDim2.new(0, 113, 0, 32)
+execute.ZIndex = 999999999
+execute.Font = Enum.Font.Jura
+execute.Text = "Execute"
+execute.TextColor3 = Color3.fromRGB(0, 0, 0)
+execute.TextScaled = true
+execute.TextSize = 12.000
+execute.TextWrapped = true
 
-for i,v in next, v:GetChildren() do
-if v:IsA("BasePart") then
-firetouchinterest(tool.Handle,v,0)
-firetouchinterest(tool.Handle,v,1)
+lines.Name = "lines"
+lines.Parent = main
+lines.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+lines.BackgroundTransparency = 1.000
+lines.BorderColor3 = Color3.fromRGB(0, 0, 0)
+lines.BorderSizePixel = 0
+lines.Position = UDim2.new(0, 0, 0.0487106033, 0)
+lines.Size = UDim2.new(0.00822673179, 30, 0.822349548, 0)
+lines.ZIndex = 4
+lines.Font = Enum.Font.Code
+lines.Text = "1"
+lines.TextColor3 = Color3.fromRGB(255, 255, 255)
+lines.TextSize = 15.000
+lines.TextYAlignment = Enum.TextYAlignment.Top
 
+editorframe.Name = "editorframe"
+editorframe.Parent = main
+editorframe.Active = true
+editorframe.BackgroundColor3 = Color3.fromRGB(68, 68, 68)
+editorframe.BorderColor3 = Color3.fromRGB(6, 6, 6)
+editorframe.BorderSizePixel = 0
+editorframe.Position = UDim2.new(0, 35, 0, 40)
+editorframe.Size = UDim2.new(0, 434, 0, 264)
+editorframe.ZIndex = 3
+editorframe.BottomImage = "rbxassetid://148970562"
+editorframe.CanvasSize = UDim2.new(0, 0, 0, 0)
+editorframe.BottomImage = "rbxassetid://148970562"
+editorframe.HorizontalScrollBarInset = Enum.ScrollBarInset.Always
+editorframe.MidImage = "rbxassetid://148970562"
+editorframe.ScrollBarImageColor3 = Color3.fromRGB(0, 0, 0)
+editorframe.TopImage = "rbxassetid://148970562"
+editorframe.VerticalScrollBarInset = Enum.ScrollBarInset.Always
+editorframe.VerticalScrollBarPosition = Enum.VerticalScrollBarPosition.Left
+editorframe.ScrollBarThickness = 6
+editorframe.TopImage = "rbxassetid://148970562"
+editorframe.VerticalScrollBarInset = Enum.ScrollBarInset.Always
+editorframe.VerticalScrollBarPosition = Enum.VerticalScrollBarPosition.Left
+
+source.Name = "source"
+source.Parent = editorframe
+source.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+source.BackgroundTransparency = 1.000
+source.BorderColor3 = Color3.fromRGB(0, 0, 0)
+source.BorderSizePixel = 0
+source.Size = UDim2.new(1.00365555, 0, 0.975609779, 0)
+source.ZIndex = 3
+source.ClearTextOnFocus = false
+source.Font = Enum.Font.Code
+source.MultiLine = true
+source.PlaceholderColor3 = Color3.fromRGB(204, 204, 204)
+source.Text = " "
+source.TextColor3 = Color3.fromRGB(204, 204, 204)
+source.TextSize = 15.000
+source.TextXAlignment = Enum.TextXAlignment.Left
+source.TextYAlignment = Enum.TextYAlignment.Top
+
+Comments_.Name = "Comments_"
+Comments_.Parent = source
+Comments_.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Comments_.BackgroundTransparency = 1.000
+Comments_.Size = UDim2.new(1, 0, 1, 0)
+Comments_.ZIndex = 5
+Comments_.Font = Enum.Font.Code
+Comments_.Text = " "
+Comments_.TextColor3 = Color3.fromRGB(59, 200, 59)
+Comments_.TextSize = 15.000
+Comments_.TextXAlignment = Enum.TextXAlignment.Left
+Comments_.TextYAlignment = Enum.TextYAlignment.Top
+
+Globals_.Name = "Globals_"
+Globals_.Parent = source
+Globals_.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Globals_.BackgroundTransparency = 1.000
+Globals_.Size = UDim2.new(1, 0, 1, 0)
+Globals_.ZIndex = 5
+Globals_.Font = Enum.Font.Code
+Globals_.Text = " "
+Globals_.TextColor3 = Color3.fromRGB(132, 214, 247)
+Globals_.TextSize = 15.000
+Globals_.TextXAlignment = Enum.TextXAlignment.Left
+Globals_.TextYAlignment = Enum.TextYAlignment.Top
+
+Keywords_.Name = "Keywords_"
+Keywords_.Parent = source
+Keywords_.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Keywords_.BackgroundTransparency = 1.000
+Keywords_.Size = UDim2.new(1, 0, 1, 0)
+Keywords_.ZIndex = 5
+Keywords_.Font = Enum.Font.Code
+Keywords_.Text = " "
+Keywords_.TextColor3 = Color3.fromRGB(248, 109, 124)
+Keywords_.TextSize = 15.000
+Keywords_.TextXAlignment = Enum.TextXAlignment.Left
+Keywords_.TextYAlignment = Enum.TextYAlignment.Top
+
+Numbers_.Name = "Numbers_"
+Numbers_.Parent = source
+Numbers_.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Numbers_.BackgroundTransparency = 1.000
+Numbers_.Size = UDim2.new(1, 0, 1, 0)
+Numbers_.ZIndex = 5
+Numbers_.Font = Enum.Font.Code
+Numbers_.Text = " "
+Numbers_.TextColor3 = Color3.fromRGB(255, 198, 0)
+Numbers_.TextSize = 15.000
+Numbers_.TextXAlignment = Enum.TextXAlignment.Left
+Numbers_.TextYAlignment = Enum.TextYAlignment.Top
+
+RemoteHighlight_.Name = "RemoteHighlight_"
+RemoteHighlight_.Parent = source
+RemoteHighlight_.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+RemoteHighlight_.BackgroundTransparency = 1.000
+RemoteHighlight_.Size = UDim2.new(1, 0, 1, 0)
+RemoteHighlight_.ZIndex = 5
+RemoteHighlight_.Font = Enum.Font.Code
+RemoteHighlight_.Text = " "
+RemoteHighlight_.TextColor3 = Color3.fromRGB(0, 144, 255)
+RemoteHighlight_.TextSize = 15.000
+RemoteHighlight_.TextXAlignment = Enum.TextXAlignment.Left
+RemoteHighlight_.TextYAlignment = Enum.TextYAlignment.Top
+
+Strings_.Name = "Strings_"
+Strings_.Parent = source
+Strings_.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Strings_.BackgroundTransparency = 1.000
+Strings_.Size = UDim2.new(1, 0, 1, 0)
+Strings_.ZIndex = 5
+Strings_.Font = Enum.Font.Code
+Strings_.Text = " "
+Strings_.TextColor3 = Color3.fromRGB(173, 241, 149)
+Strings_.TextSize = 15.000
+Strings_.TextXAlignment = Enum.TextXAlignment.Left
+Strings_.TextYAlignment = Enum.TextYAlignment.Top
+
+Tokens_.Name = "Tokens_"
+Tokens_.Parent = source
+Tokens_.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Tokens_.BackgroundTransparency = 1.000
+Tokens_.Size = UDim2.new(1, 0, 1, 0)
+Tokens_.ZIndex = 5
+Tokens_.Font = Enum.Font.Code
+Tokens_.Text = " "
+Tokens_.TextColor3 = Color3.fromRGB(255, 255, 255)
+Tokens_.TextSize = 15.000
+Tokens_.TextXAlignment = Enum.TextXAlignment.Left
+Tokens_.TextYAlignment = Enum.TextYAlignment.Top
+
+title.Name = "title"
+title.Parent = main
+title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+title.BackgroundTransparency = 1.000
+title.BorderColor3 = Color3.fromRGB(0, 0, 0)
+title.BorderSizePixel = 0
+title.Position = UDim2.new(0.230277181, 0, 0, 0)
+title.Size = UDim2.new(0, 280, 0, 40)
+title.Font = Enum.Font.SourceSans
+title.Text = "Actic Internal UI - Beta"
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.TextSize = 20.000
+
+-- Scripts:
+
+local function KDFDF_fake_script() -- clear.LocalScript 
+	local script = Instance.new('LocalScript', clear)
+
+	script.Parent.MouseButton1Click:Connect(function()
+		script.Parent.Parent.editorframe.source.Text = ""
+	end)
 end
+coroutine.wrap(KDFDF_fake_script)()
+local function GDDO_fake_script() -- execute.LocalScript 
+	local script = Instance.new('LocalScript', execute)
+
+	script.Parent.MouseButton1Click:Connect(function()
+		assert(loadstring(script.Parent.Parent.editorframe.source.Text))()
+	end)
 end
-end
-end
-end
-end)
-end
-end)
-local localPlayer = game:GetService("Players").LocalPlayer
-local currentCamera = game:GetService("Workspace").CurrentCamera
-local mouse = localPlayer:GetMouse()
+coroutine.wrap(GDDO_fake_script)()
+local function EEAIGF_fake_script() -- editorframe.LocalScript 
+	local script = Instance.new('LocalScript', editorframe)
 
-local function getClosestPlayer()
-    local closestPlayer = nil
-    local shortestDistance = math.huge
-
-    for i, v in pairs(game:GetService("Players"):GetPlayers()) do
-        if v.Name ~= localPlayer.Name then
-            if v.Character and v.Character:FindFirstChild("Humanoid") and v.Character.Humanoid.Health ~= 0 and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("Head") then
-                if v.Character:FindFirstChildOfClass("ForceField") then
-                    else
-
-
-local ray = Ray.new(v.Character:FindFirstChild("HumanoidRootPart").Position, Vector3.new(0,-100000,0))
-    local Hit = game:GetService("Workspace"):FindPartOnRay(ray, v.Character)
-
-    if Hit then
-
-
-
-                local magnitude = (v.Character.HumanoidRootPart.Position - localPlayer.Character.HumanoidRootPart.Position).magnitude
-
-                if magnitude < shortestDistance then
-                    closestPlayer = v
-                    shortestDistance = magnitude
-                end
-              end         
+	local lua_keywords = {"and", "break", "do", "else", "elseif", "end", "false", "for", "function", "goto", "if", "in", "local", "nil", "not", "or", "repeat", "return", "then", "true", "until", "while", "is_synapse_function","is_protosmasher_caller", "execute","foreach","foreachi","insert","syn","HttpGet","HttpPost","__index","__namecall","__add","__call","__tostring","__tonumber","__div"}
+	local global_env = {"getrawmetatable", "game", "workspace", "script", "math", "string", "table", "print", "wait", "BrickColor", "Color3", "next", "pairs", "ipairs", "select", "unpack", "Instance", "Vector2", "Vector3", "CFrame", "Ray", "UDim2", "Enum", "assert", "error", "warn", "tick", "loadstring", "_G", "shared", "getfenv", "setfenv", "newproxy", "setmetatable", "getmetatable", "os", "debug", "pcall", "ypcall", "xpcall", "rawequal", "rawset", "rawget", "tonumber", "tostring", "type", "typeof", "_VERSION", "coroutine", "delay", "require", "spawn", "LoadLibrary", "settings", "stats", "time", "UserSettings", "version", "Axes", "ColorSequence", "Faces", "ColorSequenceKeypoint", "NumberRange", "NumberSequence", "NumberSequenceKeypoint", "gcinfo", "elapsedTime", "collectgarbage", "PhysicalProperties", "Rect", "Region3", "Region3int16", "UDim", "Vector2int16", "Vector3int16","run_secure_function","create_secure_function","hookfunc","hookfunction","newcclosure","replaceclosure","islclosure","getgc","gcinfo","rconsolewarn","rconsoleprint","rconsoleinfo","rconsoleinput","rconsoleinputasync","rconsoleclear","rconsoleerr",}
+	
+	local Source = script.Parent.source
+	local Lines = script.Parent.Parent.lines
+	local src = Source
+	local lin = Lines
+	
+	local Highlight = function(string, keywords)
+		local K = {}
+		local S = string
+		local Token =
+			{
+				["="] = true,
+				["."] = true,
+				[","] = true,
+				["("] = true,
+				[")"] = true,
+				["["] = true,
+				["]"] = true,
+				["{"] = true,
+				["}"] = true,
+				[":"] = true,
+				["*"] = true,
+				["/"] = true,
+				["+"] = true,
+				["-"] = true,
+				["%"] = true,
+				[";"] = true,
+				["~"] = true
+			}
+		for i, v in pairs(keywords) do
+			K[v] = true
 		end
-        end
-    end
-end
-    return closestPlayer
-end
-
-local stateType = Enum.HumanoidStateType
-
-local character = game.Players.LocalPlayer.Character
-local humanoid = character:WaitForChild("Humanoid")
-
-humanoid:SetStateEnabled(stateType.FallingDown, false)
-humanoid:SetStateEnabled(stateType.Ragdoll, false)
-
-while true do
-    wait()
-    spawn(function()
-spawn(function()
-			
-if executed  then 
-    else
-    getgenv().executed = true
-spawn(function()
-
-getgenv().i_said_right_foot_creep = false
-	getgenv().ssss = game.Players.LocalPlayer:GetMouse()
-
-ssss.KeyDown:connect(function(key)
-if key == "x" then
-if i_said_right_foot_creep == false then
-    getgenv().i_said_right_foot_creep = true
-    game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass('Humanoid').AutoRotate  = false
-   else
-       
-        getgenv().i_said_right_foot_creep = false
-    game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass('Humanoid').AutoRotate  = true
-    
-end
-end
-end)
-
-end)
-end
-end)
-local nigger = getClosestPlayer()
-			if game:GetService("Players").LocalPlayer.Character.PrimaryPart  and getClosestPlayer() ~= nil and i_said_right_foot_creep == true then
-
-local TargetPart = getClosestPlayer().Character.HumanoidRootPart
-local Part = game.Players.LocalPlayer.Character.HumanoidRootPart
-local RotateX, RotateY, RotateZ = 0, 0, 0
-
-Part.CFrame = CFrame.new(Part.Position, TargetPart.Position) * CFrame.Angles(math.rad(0), math.rad(25), math.rad(0))
-
-			game:GetService("Players").LocalPlayer.Character.Humanoid:MoveTo(getClosestPlayer().Character.HumanoidRootPart.CFrame * Vector3.new(-3, 0, 0))
-if getClosestPlayer().Character.Humanoid:GetState() == Enum.HumanoidStateType.Freefall then
-game.Players.LocalPlayer.Character.Humanoid.Jump = true
-end
-               
-
-
-
+		S = S:gsub(".", function(c)
+			if Token[c] ~= nil then
+				return "\32"
+			else
+				return c
+			end
+		end)
+		S = S:gsub("%S+", function(c)
+			if K[c] ~= nil then
+				return c
+			else
+				return (" "):rep(#c)
+			end
+		end)
+	
+		return S
+	end
+	
+	local hTokens = function(string)
+		local Token =
+			{
+				["="] = true,
+				["."] = true,
+				[","] = true,
+				["("] = true,
+				[")"] = true,
+				["["] = true,
+				["]"] = true,
+				["{"] = true,
+				["}"] = true,
+				[":"] = true,
+				["*"] = true,
+				["/"] = true,
+				["+"] = true,
+				["-"] = true,
+				["%"] = true,
+				[";"] = true,
+				["~"] = true
+			}
+		local A = ""
+		local B = [[]]
+		string:gsub(".", function(c)
+			if Token[c] ~= nil then
+				A = A .. c
+			elseif c == "\n" then
+				A = A .. "\n"
+			elseif c == "\t" then
+				A = A .. "\t"
+			else
+				A = A .. "\32"
+			end
+		end)
+		return A
+	end
+	
+	
+	local strings = function(string)
+		local highlight = ""
+		local quote = false
+		string:gsub(".", function(c)
+			if quote == false and c == "\"" then
+				quote = true
+			elseif quote == true and c == "\"" then
+				quote = false
+			end
+			if quote == false and c == "\"" then
+				highlight = highlight .. "\""
+			elseif c == "\n" then
+				highlight = highlight .. "\n"
+			elseif c == "\t" then
+				highlight = highlight .. "\t"
+			elseif quote == true then
+				highlight = highlight .. c
+			elseif quote == false then
+				highlight = highlight .. "\32"
+			end
+		end)
+	
+		return highlight
+	end
+	
+	local comments = function(string)
+		local ret = ""
+		string:gsub("[^\r\n]+", function(c)
+			local comm = false
+			local i = 0
+			c:gsub(".", function(n)
+				i = i + 1
+				if c:sub(i, i + 1) == "--" then
+					comm = true
+				end
+				if comm == true then
+					ret = ret .. n
+				else
+					ret = ret .. "\32"
+				end
+			end)
+			ret = ret
+		end)
+	
+		return ret
+	end
+	
+	local numbers = function(string)
+		local A = ""
+		string:gsub(".", function(c)
+			if tonumber(c) ~= nil then
+				A = A .. c
+			elseif c == "\n" then
+				A = A .. "\n"
+			elseif c == "\t" then
+				A = A .. "\t"
+			else
+				A = A .. "\32"
+			end
+		end)
+	
+		return A
+	end
+	
+	local highlight_source = function(type)
+		if type == "Text" then
+			src.Text = Source.Text:gsub("\13", "")
+			src.Text = Source.Text:gsub("\t", "      ")
+			local s = src.Text
+			src.Keywords_.Text = Highlight(s, lua_keywords)
+			src.Globals_.Text = Highlight(s, global_env)
+			src.RemoteHighlight_.Text = Highlight(s, {"FireServer", "fireServer", "InvokeServer", "invokeServer"})
+			src.Tokens_.Text = hTokens(s)
+			src.Numbers_.Text = numbers(s)
+			src.Strings_.Text = strings(s)
+			local lin = 1
+			s:gsub("\n", function()
+				lin = lin + 1
+			end)
+			Lines.Text = ""
+			for i = 1, lin do
+				Lines.Text = Lines.Text .. i .. "\n"
+			end
 		end
-    
-    end)
+	end
+	
+	highlight_source("Text")
+	
+	src.Changed:Connect(highlight_source)
 end
-   local stateType = Enum.HumanoidStateType
+coroutine.wrap(EEAIGF_fake_script)()
+local function AGUBEHO_fake_script() -- main.Dragify 
+	local script = Instance.new('LocalScript', main)
 
-local character = game.Players.LocalPlayer.Character
-local humanoid = character:WaitForChild("Humanoid")
-
-humanoid:SetStateEnabled(stateType.FallingDown, false)
-humanoid:SetStateEnabled(stateType.Ragdoll, false)
+	local UIS = game:GetService("UserInputService")
+	local dragSpeed = -math.huge
+	
+	local dragToggle = nil
+	local dragInput = nil
+	local dragStart = nil
+	local dragPos = nil
+	
+	function dragify(Frame)
+		function updateInput(input)
+	        local Delta = input.Position - dragStart
+	        local Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + Delta.X, startPos.Y.Scale, startPos.Y.Offset + Delta.Y)
+	        script.Parent.Position = Position
+		end
+		
+	    Frame.InputBegan:Connect(function(input)
+	        if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) and UIS:GetFocusedTextBox() == nil then
+	            dragToggle = true
+	            dragStart = input.Position
+	            startPos = Frame.Position
+	            input.Changed:Connect(function()
+	                if input.UserInputState == Enum.UserInputState.End then
+	                    dragToggle = false
+	                end
+	            end)
+	        end
+		end)
+		
+	    Frame.InputChanged:Connect(function(input)
+	        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+	            dragInput = input
+	        end
+		end)
+		
+	    game:GetService("UserInputService").InputChanged:Connect(function(input)
+	        if input == dragInput and dragToggle then
+	            updateInput(input)
+	        end
+	    end)
+	end
+	
+	dragify(script.Parent)
+end
+coroutine.wrap(AGUBEHO_fake_script)()
